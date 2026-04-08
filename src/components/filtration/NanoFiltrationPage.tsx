@@ -4,6 +4,7 @@ import PageWrapper from '../PageWrapper';
 import FiltrationSpectrumChart from '../FiltrationSpectrumChart';
 import { ArrowRight, CheckCircle2, Droplets, ShieldCheck, Factory } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import DownloadButton from '../DownloadButton';
 
 export default function NanoFiltrationPage() {
   const { i18n } = useTranslation();
@@ -78,9 +79,7 @@ export default function NanoFiltrationPage() {
                 ))}
               </ul>
 
-              <button className="px-8 py-4 bg-sapphire text-white font-mono tracking-widest uppercase text-sm font-bold hover:bg-oxygen-blue transition-colors flex items-center gap-3 rounded-full shadow-lg">
-                {isFr ? 'Demander la Fiche Technique' : 'Request Technical Data Sheet'} <ArrowRight className="w-4 h-4" />
-              </button>
+              <DownloadButton isFr={isFr} textEn="Request Technical Data Sheet" textFr="Demander la Fiche Technique" />
             </motion.div>
             
             <motion.div

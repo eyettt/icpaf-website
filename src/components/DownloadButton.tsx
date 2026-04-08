@@ -4,9 +4,11 @@ import { motion } from 'motion/react';
 
 interface DownloadButtonProps {
   isFr: boolean;
+  textEn?: string;
+  textFr?: string;
 }
 
-export default function DownloadButton({ isFr }: DownloadButtonProps) {
+export default function DownloadButton({ isFr, textEn = 'Download Full Report', textFr = 'Télécharger le Rapport Complet' }: DownloadButtonProps) {
   const [status, setStatus] = useState<'idle' | 'error'>('idle');
 
   const handleClick = () => {
@@ -28,7 +30,7 @@ export default function DownloadButton({ isFr }: DownloadButtonProps) {
     >
       {status === 'idle' ? (
         <>
-          {isFr ? 'Télécharger le Rapport Complet' : 'Download Full Report'} <ArrowRight className="w-4 h-4" />
+          {isFr ? textFr : textEn} <ArrowRight className="w-4 h-4" />
         </>
       ) : (
         <motion.div
