@@ -86,20 +86,20 @@ export default function TeamPage() {
                 </p>
                 <div className="flex gap-4">
                   {person.linkedin && (
-                    <a href={person.linkedin} target="_blank" rel="noreferrer">
-                      <Linkedin className="w-4 h-4 text-sapphire/40 hover:text-oxygen-blue cursor-pointer transition-colors" />
+                    <a href={person.linkedin} target="_blank" rel="noreferrer" className="relative z-20 hover:scale-110 transition-transform">
+                      <Linkedin className="w-5 h-5 text-sapphire/60 hover:text-oxygen-blue cursor-pointer transition-colors" />
                     </a>
                   )}
                   {person.email && (
-                    <a href={`mailto:${person.email}`}>
-                      <Mail className="w-4 h-4 text-sapphire/40 hover:text-oxygen-blue cursor-pointer transition-colors" />
+                    <a href={`mailto:${person.email}`} className="relative z-20 hover:scale-110 transition-transform">
+                      <Mail className="w-5 h-5 text-sapphire/60 hover:text-oxygen-blue cursor-pointer transition-colors" />
                     </a>
                   )}
                 </div>
               </div>
 
               {/* Default Info */}
-              <div className="absolute bottom-6 left-6 right-6 group-hover:opacity-0 transition-opacity duration-300">
+              <div className="absolute bottom-6 left-6 right-6 group-hover:opacity-0 transition-opacity duration-300 pointer-events-none">
                 <h3 className="text-xl font-serif text-sapphire">{person.name}</h3>
                 <p className="text-oxygen-blue/60 text-[10px] font-mono tracking-widest uppercase">{person.role}</p>
               </div>
