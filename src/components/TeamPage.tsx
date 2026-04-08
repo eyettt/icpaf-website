@@ -1,6 +1,6 @@
 
 import { motion } from 'motion/react';
-import { Linkedin, Twitter, Mail } from 'lucide-react';
+import { Linkedin, Mail } from 'lucide-react';
 import PageWrapper from './PageWrapper';
 import { useTranslation } from 'react-i18next';
 import khaledImg from '../../images/About us/team/khaled.jpeg';
@@ -11,12 +11,17 @@ const leadersEn = [
     name: 'Khaled Taieb',
     role: 'CEO & Chief Molecular Architect',
     bio: 'Pioneering in Water treatment and filtration for over 35 years.',
-    image: khaledImg
+    image: khaledImg,
+    linkedin: 'https://www.linkedin.com/in/khaled-taieb/',
+    email: 'khaled.taieb@icpafwater.com'
   },
   {
     name: 'Azzedine Boutta',
     role: 'CEO & Founder of ICPAF',
-    image: azedineImg
+    bio: 'Guiding ICPAF into the future of sustainable water treatment logistics and global deployment.',
+    image: azedineImg,
+    linkedin: 'https://www.linkedin.com/in/azzedine-boutta-636155237/',
+    email: 'a.boutta@icpafwater.com'
   }
 ];
 
@@ -25,12 +30,17 @@ const leadersFr = [
     name: 'Khaled Taieb',
     role: 'Architecte Moléculaire en Chef',
     bio: 'Pionnier dans le traitement et la filtration de l\'eau depuis plus de 35 ans.',
-    image: khaledImg
+    image: khaledImg,
+    linkedin: 'https://www.linkedin.com/in/khaled-taieb/',
+    email: 'khaled.taieb@icpafwater.com'
   },
   {
     name: 'Azzedine Boutta',
     role: 'CEO & Fondateur de ICPAF',
-    image: azedineImg
+    bio: 'Guidant ICPAF vers l\'avenir de la logistique du traitement durable de l\'eau et du déploiement mondial.',
+    image: azedineImg,
+    linkedin: 'https://www.linkedin.com/in/azzedine-boutta-636155237/',
+    email: 'a.boutta@icpafwater.com'
   }
 ];
 
@@ -75,9 +85,16 @@ export default function TeamPage() {
                   {person.bio}
                 </p>
                 <div className="flex gap-4">
-                  <Linkedin className="w-4 h-4 text-sapphire/40 hover:text-oxygen-blue cursor-pointer transition-colors" />
-                  <Twitter className="w-4 h-4 text-sapphire/40 hover:text-oxygen-blue cursor-pointer transition-colors" />
-                  <Mail className="w-4 h-4 text-sapphire/40 hover:text-oxygen-blue cursor-pointer transition-colors" />
+                  {person.linkedin && (
+                    <a href={person.linkedin} target="_blank" rel="noreferrer">
+                      <Linkedin className="w-4 h-4 text-sapphire/40 hover:text-oxygen-blue cursor-pointer transition-colors" />
+                    </a>
+                  )}
+                  {person.email && (
+                    <a href={`mailto:${person.email}`}>
+                      <Mail className="w-4 h-4 text-sapphire/40 hover:text-oxygen-blue cursor-pointer transition-colors" />
+                    </a>
+                  )}
                 </div>
               </div>
 
