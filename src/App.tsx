@@ -41,8 +41,10 @@ import Logo from './components/Logo';
 import { useTranslation } from 'react-i18next';
 
 export default function App() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const isFr = i18n.language === 'fr';
   const [activePage, setActivePage] = useState<PageId>('home');
+  const [formStatus, setFormStatus] = useState<'idle' | 'sending' | 'success'>('idle');
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, {
     stiffness: 100,
@@ -198,10 +200,47 @@ export default function App() {
             </div>
 
             <div className="flex flex-col justify-end">
-              <form className="space-y-6" onSubmit={(e) => e.preventDefault()}>
+              <form className="space-y-6" onSubmit={async (e) => {
+                e.preventDefault();
+                setFormStatus('sending');
+                
+                const form = e.target as HTMLFormElement;
+                const formData = new FormData(form);
+                const data = Object.fromEntries(formData.entries());
+                
+                // FormSubmit configuration
+                data._cc = "a.boutta@icpafwater.com";
+                data._subject = `New Client Inquiry: ${data.inquiryType}`;
+                data._template = "table";
+
+                try {
+                  const response = await fetch("https://formsubmit.co/ajax/khaled.taieb@icpafwater.com", {
+                      method: "POST",
+                      headers: { 
+                          'Content-Type': 'application/json',
+                          'Accept': 'application/json'
+                      },
+                      body: JSON.stringify(data)
+                  });
+                  
+                  if (response.ok) {
+                    setFormStatus('success');
+                    form.reset();
+                    setTimeout(() => setFormStatus('idle'), 4000);
+                  } else {
+                    console.error("FormSubmit Error", await response.text());
+                    setFormStatus('idle');
+                    alert(isFr ? "L'envoi a échoué. Veuillez réessayer." : "Submission failed. Please try again later.");
+                  }
+                } catch (err) {
+                  console.error(err);
+                  setFormStatus('idle');
+                  alert(isFr ? "Erreur de connexion. Veuillez réessayer." : "Submission failed to connect. Please try again later.");
+                }
+              }}>
                 <div className="space-y-2">
                   <label className="text-[10px] font-mono tracking-[0.4em] uppercase text-sapphire/60 ml-4">{t('contact.inquiryType')}</label>
-                  <select className="w-full bg-white/50 backdrop-blur-sm border border-sapphire/10 rounded-2xl px-6 py-4 focus:outline-none focus:border-oxygen-blue focus:ring-2 focus:ring-oxygen-blue/20 transition-all font-sans text-lg font-light text-sapphire appearance-none cursor-pointer">
+                  <select name="inquiryType" className="w-full bg-white/50 backdrop-blur-sm border border-sapphire/10 rounded-2xl px-6 py-4 focus:outline-none focus:border-oxygen-blue focus:ring-2 focus:ring-oxygen-blue/20 transition-all font-sans text-lg font-light text-sapphire appearance-none cursor-pointer">
                     <option value="expert">{t('contact.expert')}</option>
                     <option value="systems">{t('contact.systems')}</option>
                     <option value="chemicals">{t('contact.chemicals')}</option>
@@ -210,14 +249,35 @@ export default function App() {
                 </div>
                 <div className="space-y-2">
                   <label className="text-[10px] font-mono tracking-[0.4em] uppercase text-sapphire/60 ml-4">{t('contact.fullName')}</label>
-                  <input type="text" className="w-full bg-white/50 backdrop-blur-sm border border-sapphire/10 rounded-2xl px-6 py-4 focus:outline-none focus:border-oxygen-blue focus:ring-2 focus:ring-oxygen-blue/20 transition-all font-sans text-lg font-light text-sapphire" placeholder="John Doe" />
+                  <input name="name" type="text" required className="w-full bg-white/50 backdrop-blur-sm border border-sapphire/10 rounded-2xl px-6 py-4 focus:outline-none focus:border-oxygen-blue focus:ring-2 focus:ring-oxygen-blue/20 transition-all font-sans text-lg font-light text-sapphire" placeholder="John Doe" />
                 </div>
                 <div className="space-y-2">
                   <label className="text-[10px] font-mono tracking-[0.4em] uppercase text-sapphire/60 ml-4">{t('contact.emailAddress')}</label>
-                  <input type="email" className="w-full bg-white/50 backdrop-blur-sm border border-sapphire/10 rounded-2xl px-6 py-4 focus:outline-none focus:border-oxygen-blue focus:ring-2 focus:ring-oxygen-blue/20 transition-all font-sans text-lg font-light text-sapphire" placeholder="john@company.com" />
+                  <input name="email" type="email" required className="w-full bg-white/50 backdrop-blur-sm border border-sapphire/10 rounded-2xl px-6 py-4 focus:outline-none focus:border-oxygen-blue focus:ring-2 focus:ring-oxygen-blue/20 transition-all font-sans text-lg font-light text-sapphire" placeholder="john@company.com" />
                 </div>
-                <button className="w-full py-5 mt-4 bg-sapphire text-clinical-white font-mono tracking-[0.5em] uppercase text-xs font-bold hover:bg-sapphire/90 transition-all rounded-2xl shadow-lg">
-                  {t('contact.send')}
+                <div className="space-y-2">
+                  <label className="text-[10px] font-mono tracking-[0.4em] uppercase text-sapphire/60 ml-4">{isFr ? 'Numéro de Téléphone' : 'Phone Number'}</label>
+                  <input name="phone" type="tel" className="w-full bg-white/50 backdrop-blur-sm border border-sapphire/10 rounded-2xl px-6 py-4 focus:outline-none focus:border-oxygen-blue focus:ring-2 focus:ring-oxygen-blue/20 transition-all font-sans text-lg font-light text-sapphire" placeholder="+1 (555) 000-0000" />
+                </div>
+                <div className="space-y-2">
+                  <label className="text-[10px] font-mono tracking-[0.4em] uppercase text-sapphire/60 ml-4">{isFr ? 'Détails du Projet' : 'Project Details'}</label>
+                  <textarea name="message" required rows={4} className="w-full bg-white/50 backdrop-blur-sm border border-sapphire/10 rounded-2xl px-6 py-4 focus:outline-none focus:border-oxygen-blue focus:ring-2 focus:ring-oxygen-blue/20 transition-all font-sans text-lg font-light text-sapphire resize-none" placeholder={isFr ? "Veuillez décrire le défi de votre installation..." : "Please describe your facility's challenge..."}></textarea>
+                </div>
+                <input type="text" name="_honey" style={{ display: 'none' }} />
+                <button 
+                  disabled={formStatus !== 'idle'}
+                  className={`w-full py-5 mt-4 text-clinical-white font-mono tracking-[0.3em] uppercase text-xs font-bold transition-all rounded-2xl shadow-lg flex items-center justify-center gap-3 ${
+                    formStatus === 'success' ? 'bg-[#5C9E42]' : 'bg-sapphire hover:bg-sapphire/90'
+                  } ${formStatus === 'sending' ? 'opacity-80 cursor-wait' : ''}`}
+                >
+                  {formStatus === 'idle' && t('contact.send')}
+                  {formStatus === 'sending' && (
+                    <>
+                      <motion.div animate={{ rotate: 360 }} transition={{ repeat: Infinity, duration: 1, ease: "linear" }} className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full" />
+                      {isFr ? 'Envoi en cours...' : 'Sending...'}
+                    </>
+                  )}
+                  {formStatus === 'success' && (isFr ? '✓ Demande envoyée !' : '✓ Inquiry sent successfully!')}
                 </button>
               </form>
             </div>
