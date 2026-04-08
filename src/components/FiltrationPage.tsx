@@ -4,9 +4,11 @@ import PageWrapper from './PageWrapper';
 import FiltrationSpectrumChart from './FiltrationSpectrumChart';
 import { ArrowRight, CheckCircle2 } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import DownloadButton from './DownloadButton';
 
 export default function FiltrationPage() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const isFr = i18n.language === 'fr';
 
   return (
     <PageWrapper>
@@ -74,9 +76,7 @@ export default function FiltrationPage() {
                 ))}
               </ul>
 
-              <button className="px-8 py-4 bg-sapphire text-white font-mono tracking-widest uppercase text-sm font-bold hover:bg-sapphire transition-colors flex items-center gap-3 rounded-full shadow-lg">
-                {t('filtration.requestDataSheet')} <ArrowRight className="w-4 h-4" />
-              </button>
+              <DownloadButton isFr={isFr} textEn="Request Technical Data Sheet" textFr="Demander la Fiche Technique" />
             </motion.div>
             
             <motion.div
@@ -142,9 +142,7 @@ export default function FiltrationPage() {
                 ))}
               </ul>
 
-              <button className="px-8 py-4 bg-sapphire text-white font-mono tracking-widest uppercase text-sm font-bold hover:bg-sapphire transition-colors flex items-center gap-3 rounded-full shadow-lg">
-                {t('filtration.requestDataSheet')} <ArrowRight className="w-4 h-4" />
-              </button>
+              <DownloadButton isFr={isFr} textEn="Request Technical Data Sheet" textFr="Demander la Fiche Technique" />
             </motion.div>
           </div>
         </div>

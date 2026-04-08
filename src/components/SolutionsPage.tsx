@@ -3,6 +3,7 @@ import { motion } from 'motion/react';
 import PageWrapper from './PageWrapper';
 import { ArrowRight, CheckCircle2 } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import DownloadButton from './DownloadButton';
 
 interface SolutionsPageProps {
   onNavigate: (page: string) => void;
@@ -84,15 +85,7 @@ export default function SolutionsPage({ onNavigate }: SolutionsPageProps) {
                 ))}
               </ul>
 
-              <button 
-                onClick={() => {
-                  onNavigate('membrane-coagulation-reactor');
-                  window.scrollTo({ top: 0, behavior: 'smooth' });
-                }}
-                className="px-8 py-4 bg-sapphire text-white font-mono tracking-widest uppercase text-sm font-bold hover:bg-oxygen-blue transition-colors flex items-center gap-3 rounded-full shadow-lg"
-              >
-                {isFr ? 'Demander la Fiche Technique' : 'Request Technical Data Sheet'} <ArrowRight className="w-4 h-4" />
-              </button>
+              <DownloadButton isFr={isFr} textEn="Request Technical Data Sheet" textFr="Demander la Fiche Technique" />
             </motion.div>
             
             <motion.div
@@ -165,15 +158,7 @@ export default function SolutionsPage({ onNavigate }: SolutionsPageProps) {
                 ))}
               </ul>
 
-              <button 
-                onClick={() => {
-                  onNavigate('acid-liquid-purification');
-                  window.scrollTo({ top: 0, behavior: 'smooth' });
-                }}
-                className="px-8 py-4 bg-sapphire text-white font-mono tracking-widest uppercase text-sm font-bold hover:bg-oxygen-blue transition-colors flex items-center gap-3 rounded-full shadow-lg"
-              >
-                {isFr ? 'Demander la Fiche Technique' : 'Request Technical Data Sheet'} <ArrowRight className="w-4 h-4" />
-              </button>
+              <DownloadButton isFr={isFr} textEn="Request Technical Data Sheet" textFr="Demander la Fiche Technique" />
             </motion.div>
           </div>
 
@@ -213,15 +198,7 @@ export default function SolutionsPage({ onNavigate }: SolutionsPageProps) {
                 ))}
               </ul>
 
-              <button 
-                onClick={() => {
-                  onNavigate('seawater-desalination-pre-treatment');
-                  window.scrollTo({ top: 0, behavior: 'smooth' });
-                }}
-                className="px-8 py-4 bg-sapphire text-white font-mono tracking-widest uppercase text-sm font-bold hover:bg-oxygen-blue transition-colors flex items-center gap-3 rounded-full shadow-lg"
-              >
-                {isFr ? 'Demander la Fiche Technique' : 'Request Technical Data Sheet'} <ArrowRight className="w-4 h-4" />
-              </button>
+              <DownloadButton isFr={isFr} textEn="Request Technical Data Sheet" textFr="Demander la Fiche Technique" />
             </motion.div>
             
             <motion.div
@@ -294,15 +271,7 @@ export default function SolutionsPage({ onNavigate }: SolutionsPageProps) {
                 ))}
               </ul>
 
-              <button 
-                onClick={() => {
-                  onNavigate('reclaimed-water-reused');
-                  window.scrollTo({ top: 0, behavior: 'smooth' });
-                }}
-                className="px-8 py-4 bg-sapphire text-white font-mono tracking-widest uppercase text-sm font-bold hover:bg-oxygen-blue transition-colors flex items-center gap-3 rounded-full shadow-lg"
-              >
-                {isFr ? 'Demander la Fiche Technique' : 'Request Technical Data Sheet'} <ArrowRight className="w-4 h-4" />
-              </button>
+              <DownloadButton isFr={isFr} textEn="Request Technical Data Sheet" textFr="Demander la Fiche Technique" />
             </motion.div>
           </div>
 
@@ -342,15 +311,7 @@ export default function SolutionsPage({ onNavigate }: SolutionsPageProps) {
                 ))}
               </ul>
 
-              <button 
-                onClick={() => {
-                  onNavigate('oil-water-separation');
-                  window.scrollTo({ top: 0, behavior: 'smooth' });
-                }}
-                className="px-8 py-4 bg-sapphire text-white font-mono tracking-widest uppercase text-sm font-bold hover:bg-oxygen-blue transition-colors flex items-center gap-3 rounded-full shadow-lg"
-              >
-                {isFr ? 'Demander la Fiche Technique' : 'Request Technical Data Sheet'} <ArrowRight className="w-4 h-4" />
-              </button>
+              <DownloadButton isFr={isFr} textEn="Request Technical Data Sheet" textFr="Demander la Fiche Technique" />
             </motion.div>
             
             <motion.div
