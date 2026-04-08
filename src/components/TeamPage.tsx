@@ -4,7 +4,7 @@ import { Linkedin, Mail } from 'lucide-react';
 import PageWrapper from './PageWrapper';
 import { useTranslation } from 'react-i18next';
 import khaledImg from '../../images/About us/team/khaled.jpeg';
-import azedineImg from '../../images/About us/team/azedine boutta.jpeg';
+import azedineImg from '../../images/About us/team/azedine boutta 1.jpeg';
 
 const leadersEn = [
   {
